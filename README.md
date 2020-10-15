@@ -1,4 +1,4 @@
-# build-vyos-lts
+# VYoS LTS
 
 Build VyOS from LTS
 
