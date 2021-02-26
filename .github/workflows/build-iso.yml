@@ -16,7 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set env variables
-        run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF:10}    
+        run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF:10}
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
 
       - name: Build "vyos-build" Docker image
         run: |
