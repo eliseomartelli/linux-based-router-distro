@@ -22,7 +22,7 @@ jobs:
 
       - name: Build "vyos-build" Docker image
         run: |
-          git clone -b crux --single-branch https://github.com/vyos/vyos-build.git
+          git clone -b equuleus --single-branch https://github.com/vyos/vyos-build.git
           cd vyos-build
           docker build -t vyos-builder docker
 
