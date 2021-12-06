@@ -1,4 +1,4 @@
-# VyOS LTS
+# Linux Based Router Distro unofficial builds.
 
 https://docs.vyos.io/en/latest/contributing/build-vyos.html  
 
