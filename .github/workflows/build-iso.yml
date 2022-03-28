@@ -30,14 +30,9 @@ jobs:
         run: |
           docker run --rm --privileged -v $(pwd)/vyos-build:/vyos -w /vyos vyos-builder bash -c './configure --architecture amd64 --build-type release --version ${{ env.RELEASE_VERSION }} && sudo make iso'
 
-      - name: Build VyOS ISO ARM64
-        run: |
-          docker run --rm --privileged -v $(pwd)/vyos-build:/vyos -w /vyos vyos-builder bash -c './configure --architecture arm64 --build-type release --version ${{ env.RELEASE_VERSION }} && sudo make iso'
-
       - name: Rename VyOS ISO
         run: |
           mv vyos-build/build/live-image-amd64.hybrid.iso vyos-build/build/linux-based-router-distro-${{ env.RELEASE_VERSION }}-amd64.iso
-          mv vyos-build/build/live-image-arm64.hybrid.iso vyos-build/build/linux-based-router-distro-${{ env.RELEASE_VERSION }}-arm64.iso
           ls vyos-build/build -lh
 
       - name: Upload VyOS ISO to GitHub artifacts
