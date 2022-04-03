@@ -39,12 +39,12 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: vyos-lts
-          path: 'vyos-build/build/linux-based-router-distro-${{ env.RELEASE_VERSION }}-*.iso'
+          path: 'vyos-build/build/linux-based-router-distro-${{ env.RELEASE_VERSION }}-amd64.iso'
 
       - name: Upload VyOS artifacts to release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: vyos-build/build/linux-based-router-distro-${{ env.RELEASE_VERSION }}-*.iso
+          files: vyos-build/build/linux-based-router-distro-${{ env.RELEASE_VERSION }}-amd64.iso
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
