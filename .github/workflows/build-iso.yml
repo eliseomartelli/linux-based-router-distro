@@ -1,15 +1,15 @@
 name: Build Linux Based Router Distro LTS
 
-# on: 
+# on:
 #   release:
 #     types: [published]
 #   push:
-#     branches: 
+#     branches:
 #       - master
 on:
   push:
     tags:
-      - '*.*.*'
+      - "*.*.*"
 
 jobs:
   build:
@@ -18,7 +18,7 @@ jobs:
       - name: Set env variables
         run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF:10}
         env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: "true"
 
       - name: Build "vyos-build" Docker image
         run: |
@@ -28,7 +28,7 @@ jobs:
 
       - name: Build VyOS ISO AMD64
         run: |
-          docker run --rm --privileged -v $(pwd)/vyos-build:/vyos -w /vyos vyos-builder bash -c './configure --architecture amd64 --build-type release --version ${{ env.RELEASE_VERSION }} && sudo make iso'
+          docker run --rm --privileged -v $(pwd)/vyos-build:/vyos -w /vyos vyos-builder bash -c './configure --architecture amd64 --build-type release --version ${{ env.RELEASE_VERSION }} --build-by "me@eliseomartelli.it" && sudo make iso'
 
       - name: Rename VyOS ISO
         run: |
@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: vyos-lts
-          path: 'vyos-build/build/linux-based-router-distro-${{ env.RELEASE_VERSION }}-amd64.iso'
+          path: "vyos-build/build/linux-based-router-distro-${{ env.RELEASE_VERSION }}-amd64.iso"
 
       - name: Upload VyOS artifacts to release
         uses: softprops/action-gh-release@v1
@@ -51,7 +51,7 @@ jobs:
 
       - name: Build VyOS ISO ARM64
         run: |
-          docker run --rm --privileged -v $(pwd)/vyos-build:/vyos -w /vyos vyos-builder bash -c './configure --architecture arm64 --build-type release --version ${{ env.RELEASE_VERSION }} && sudo make iso'
+          docker run --rm --privileged -v $(pwd)/vyos-build:/vyos -w /vyos vyos-builder bash -c './configure --architecture arm64 --build-type release --version ${{ env.RELEASE_VERSION }} --build-by "me@eliseomartelli.it" && sudo make iso'
 
       - name: Rename VyOS ISO
         run: |
@@ -62,7 +62,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: vyos-lts
-          path: 'vyos-build/build/linux-based-router-distro-${{ env.RELEASE_VERSION }}-arm64.iso'
+          path: "vyos-build/build/linux-based-router-distro-${{ env.RELEASE_VERSION }}-arm64.iso"
 
       - name: Upload VyOS artifacts to release
         uses: softprops/action-gh-release@v1
