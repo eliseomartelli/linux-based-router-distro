@@ -48,26 +48,3 @@ jobs:
           files: vyos-build/build/linux-based-router-distro-${{ env.RELEASE_VERSION }}-amd64.iso
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build VyOS ISO ARM64
-        run: |
-          docker run --rm --privileged -v $(pwd)/vyos-build:/vyos -w /vyos vyos-builder bash -c './configure --architecture arm64 --build-type release --version ${{ env.RELEASE_VERSION }} --build-by "me@eliseomartelli.it" && sudo make iso'
-
-      - name: Rename VyOS ISO
-        run: |
-          mv vyos-build/build/live-image-arm64.hybrid.iso vyos-build/build/linux-based-router-distro-${{ env.RELEASE_VERSION }}-arm64.iso
-          ls vyos-build/build -lh
-
-      - name: Upload VyOS ISO to GitHub artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: vyos-lts
-          path: "vyos-build/build/linux-based-router-distro-${{ env.RELEASE_VERSION }}-arm64.iso"
-
-      - name: Upload VyOS artifacts to release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: vyos-build/build/linux-based-router-distro-${{ env.RELEASE_VERSION }}-arm64.iso
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
