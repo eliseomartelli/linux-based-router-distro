@@ -22,12 +22,12 @@ jobs:
 
       - name: Build "vyos-build" Docker image
         run: |
-          git clone -b equuleus --single-branch https://github.com/vyos/vyos-build.git
+          git clone -b sagitta --single-branch https://github.com/vyos/vyos-build.git
 
       - name: Build VyOS ISO AMD64
         run: |
           docker run --rm --privileged \
-            -v $(pwd)/vyos-build:/vyos -w /vyos vyos/vyos-build:equuleus bash \
+            -v $(pwd)/vyos-build:/vyos -w /vyos vyos/vyos-build:sagitta bash \
             -c './configure --architecture amd64 \
             --build-type release --version ${{ env.RELEASE_VERSION }} \
             --build-by "me@eliseomartelli.it" && sudo make iso'
